@@ -109,7 +109,7 @@ function Quest:OnAddonMessage(message, channel, sender)
 					SelectQuestLogEntry(i)
 					SetAbandonQuest()
 					AbandonQuest()
-					PlaySound("igQuestLogAbandonQuest")
+					PlaySound(SOUNDKIT.IG_QUEST_LOG_ABANDON_QUEST);
 					accept[qname], accepted[qname] = nil, nil
 					return self:Print(L.QuestAbandoned, sender, qlink)
 				end

@@ -10,22 +10,22 @@
 	* Mount and dismount together.
 ----------------------------------------------------------------------]]
 
-local _, Hydra = ...
-local L = Hydra.L
-local STATE_SOLO, STATE_INSECURE, STATE_SECURE, STATE_LEADER = Hydra.STATE_SOLO, Hydra.STATE_INSECURE, Hydra.STATE_SECURE, Hydra.STATE_LEADER
+local _, Hydra = ...;
+local L = Hydra.L;
+local STATE_SOLO, STATE_INSECURE, STATE_SECURE, STATE_LEADER = Hydra.STATE_SOLO, Hydra.STATE_INSECURE, Hydra.STATE_SECURE, Hydra.STATE_LEADER;
 
-local Mount = Hydra:NewModule("Mount")
+local Mount = Hydra:NewModule("Mount");
 Mount.defaults = {
 	mount = true,
 	dismount = true,
 }
 
-local ACTION_DISMOUNT, ACTION_MOUNT = "DISMOUNT", "MOUNT"
-local MESSAGE_ERROR = "ERROR"
+local ACTION_DISMOUNT, ACTION_MOUNT = "DISMOUNT", "MOUNT";
+local MESSAGE_ERROR = "ERROR";
 
-local isCasting, isMounted, responding
+local isCasting, isMounted, responding;
 
-local MountIDs
+local MountIDs;
 
 ------------------------------------------------------------------------
 
@@ -34,22 +34,22 @@ function Mount:ShouldEnable()
 end
 
 function Mount:OnEnable()
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:RegisterEvent("PLAYER_REGEN_DISABLED");
+	self:RegisterEvent("PLAYER_REGEN_ENABLED");
 	if not UnitAffectingCombat("player") then
-		self:PLAYER_REGEN_ENABLED()
+		self:PLAYER_REGEN_ENABLED();
 	end
 
-	MountIDs = C_MountJournal.GetMountIDs()
+	MountIDs = C_MountJournal.GetMountIDs();
 
 	if IsMounted() then
 		for i = 1, #MountIDs do
-			local _, id, _, active = C_MountJournal.GetMountInfoByID(MountIDs[i])
+			local _, spellID, _, active = C_MountJournal.GetMountInfoByID(MountIDs[i]);
 			if active then
-				local name = GetSpellInfo(id)
-				self:Debug("Already mounted:", name)
-				isMounted = name
-				self:RegisterUnitEvent("UNIT_AURA", "player")
+				local name = GetSpellInfo(spellID);
+				self:Debug("Already mounted:", name);
+				isMounted = name;
+				self:RegisterUnitEvent("UNIT_AURA", "player");
 				break
 			end
 		end
@@ -69,6 +69,7 @@ local mountTypeString = {
 	[248] = "AIR",
 	[254] = "WATER", -- Subdued Seahorse, 300% swim speed
 	[269] = "WATER_WALKING", -- Azure/Crimson Water Strider
+	[284] = "Chauffeured Mekgineer's Chopper" or "Chauffeured Mechano-Hog"
 }
 
 function Mount:OnAddonMessage(message, channel, sender)
@@ -85,7 +86,7 @@ function Mount:OnAddonMessage(message, channel, sender)
 		self:Debug(sender, "dismounted")
 		if self.db.dismount then
 			responding = true
-			Dismount()
+			Dismount();
 			responding = nil
 		end
 		return
@@ -122,8 +123,8 @@ function Mount:OnAddonMessage(message, channel, sender)
 	end
 	for i = 1, #MountIDs do
 		local mountID = MountIDs[i]
-		local _, _, _, _, usable = C_MountJournal.GetMountInfoByID(mountID)
-		if usable then
+		local _, _, _, _, isUsable = C_MountJournal.GetMountInfoByID(mountID)
+		if isUsable then
 			local _, _, _, _, mountTypeID = C_MountJournal.GetMountInfoExtraByID(mountID)
 			if mountTypeString[mountTypeID] == mountType then
 				self:Debug("Found equivalent mount", name)
@@ -166,7 +167,7 @@ function Mount:PLAYER_REGEN_ENABLED()
 	self:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
 end
 
-function Mount:UNIT_SPELLCAST_START(unit, spellName, _, castID, spellID)
+function Mount:UNIT_SPELLCAST_START(unit, castID, spellID)
 	--self:Debug("UNIT_SPELLCAST_START", spellName)
 	for i = 1, #MountIDs do
 		local mountID = MountIDs[i]
@@ -183,28 +184,28 @@ function Mount:UNIT_SPELLCAST_START(unit, spellName, _, castID, spellID)
 	end
 end
 
-function Mount:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, castID, spellID)
+function Mount:UNIT_SPELLCAST_SUCCEEDED(unit, castID, spellID)
 	--self:Debug("UNIT_SPELLCAST_SUCCEEDED", spellName)
-	if spellName == isCasting then
-		isMounted = spellName
+	if spellID == isCasting then
+		isMounted = spellID
 		self:Debug("Mounted!")
 		self:RegisterUnitEvent("UNIT_AURA", "player")
 	end
 end
 
-function Mount:UNIT_SPELLCAST_STOP(unit, spellName, _, castID, spellID)
+function Mount:UNIT_SPELLCAST_STOP(unit, castID, spellID)
 	--self:Debug("UNIT_SPELLCAST_STOP", spellName)
 	self:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	self:UnregisterEvent("UNIT_SPELLCAST_STOP")
 end
 
 function Mount:UNIT_AURA(unit)
-	if not UnitBuff(unit, isMounted) then
+	if not UnitBuff(unit, _, isMounted) then
 		if not responding then
-			self:Debug("Dismounted")
-			self:SendAddonMessage(ACTION_DISMOUNT)
+			self:Debug("Dismounted");
+			self:SendAddonMessage(ACTION_DISMOUNT);
 		end
-		self:UnregisterEvent("UNIT_AURA")
+		self:UnregisterEvent("UNIT_AURA");
 		isMounted = nil
 	end
 end

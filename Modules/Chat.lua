@@ -9,14 +9,14 @@
 	Hydra Chat
 	* Forwards whispers to characters without app focus to party chat
 	* Relays responses to forwarded whispers in party chat back to the
-	  original sender as a whisper from the forwarding character
+		original sender as a whisper from the forwarding character
 	* Respond to a whisper forwarded by a character other than the last
-	  forwarder by typing "@name message" in party chat, where "name" is
-	  the character that forwarded the whipser
+		forwarder by typing "@name message" in party chat, where "name" is
+		the character that forwarded the whipser
 	* Respond to a whisper forwarded by a character that has since
-	  forwarded another whisper, or send an arbitrary whipser from a
-	  character, by whispering the character with "@name message", where
-	  "name" is the target of the message
+		forwarded another whisper, or send an arbitrary whipser from a
+		character, by whispering the character with "@name message", where
+		"name" is the target of the message
 ----------------------------------------------------------------------]]
 
 local _, Hydra = ...
@@ -50,8 +50,8 @@ function Chat:ShouldEnable()
 end
 
 function Chat:OnEnable()
-	self:RegisterEvent("CHAT_MSG_GROUP")
-	self:RegisterEvent("CHAT_MSG_GROUP_LEADER")
+	self:RegisterEvent("CHAT_MSG_PARTY")
+	self:RegisterEvent("CHAT_MSG_PARTY_LEADER")
 	self:RegisterEvent("CHAT_MSG_RAID")
 	self:RegisterEvent("CHAT_MSG_RAID_LEADER")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
@@ -69,10 +69,10 @@ end
 
 local playerToken = "@" .. PLAYER .. "%-?%S*" -- allow but don't require a realm
 
-function Chat:CHAT_MSG_GROUP(message, sender) -- #TODO: check if player is "name" or "name-realm"
+function Chat:CHAT_MSG_PARTY(message, sender) -- #TODO: check if player is "name" or "name-realm"
 	if sender == PLAYER or sender == PLAYERREALM or strmatch(message, "^!") then return end -- command or error response
 
-	self:Debug("CHAT_MSG_GROUP", sender, message)
+	self:Debug("CHAT_MSG_PARTY", sender, message)
 
 	if strmatch(message, "^>> .-: .+$") then
 		if not strmatch(message, "POSSIBLE SPAM") then
@@ -106,10 +106,10 @@ function Chat:CHAT_MSG_GROUP(message, sender) -- #TODO: check if player is "name
 	end
 end
 
-Chat.CHAT_MSG_GROUP_LEADER = Chat.CHAT_MSG_GROUP
-Chat.CHAT_MSG_INSTANCE_CHAT = Chat.CHAT_MSG_GROUP
-Chat.CHAT_MSG_RAID = Chat.CHAT_MSG_GROUP
-Chat.CHAT_MSG_RAID_LEADER = Chat.CHAT_MSG_GROUP
+Chat.CHAT_MSG_PARTY_LEADER = Chat.CHAT_MSG_PARTY
+Chat.CHAT_MSG_INSTANCE_CHAT = Chat.CHAT_MSG_PARTY
+Chat.CHAT_MSG_RAID = Chat.CHAT_MSG_PARTY
+Chat.CHAT_MSG_RAID_LEADER = Chat.CHAT_MSG_PARTY
 
 ------------------------------------------------------------------------
 
@@ -306,7 +306,7 @@ function Chat:SetupOptions(panel)
 
 	local modes = {
 		APPFOCUS = L.ApplicationFocus,
-		LEADER = L.GroupLeader,
+		LEADER = L.PartyLeader,
 	}
 
 	local mode
@@ -320,7 +320,7 @@ function Chat:SetupOptions(panel)
 		end
 		local menu = {
 			{ text = L.AppFocus, value = "APPFOCUS", checked = checked, func = func },
-			{ text = L.GroupLeader, value = "LEADER", checked = checked, func = func },
+			{ text = L.PartyLeader, value = "LEADER", checked = checked, func = func },
 		}
 		mode = panel:CreateDropdown(L.DetectionMethod, L.DetectionMethod_Info, menu)
 		mode:SetPoint("TOPLEFT", enable, "BOTTOMLEFT", 0, -16)

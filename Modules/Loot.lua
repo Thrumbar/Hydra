@@ -25,7 +25,7 @@ function Loot:ShouldEnable()
 end
 
 function Loot:OnEnable()
-	self:RegisterEvent("GROUP_ROSTER_CHANGED")
+--	self:RegisterEvent("GROUP_ROSTER_CHANGED")
 	self:OnStateChange(Hydra.state)
 end
 

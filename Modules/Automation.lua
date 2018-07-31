@@ -36,7 +36,7 @@ Automation.defaults = {
 
 function Automation:OnEnable()
 	if self.db.declineArenaTeams then
-		self:RegisterEvent("ARENA_TEAM_INVITE_REQUEST")
+--		self:RegisterEvent("ARENA_TEAM_INVITE_REQUEST")
 	end
 	if self.db.acceptSummons then
 		self:RegisterEvent("CONFIRM_SUMMON")

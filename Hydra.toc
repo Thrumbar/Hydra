@@ -1,5 +1,5 @@
 ## Interface: 70000
-## Version: @project-version@
+## Version: 7.0.3.0
 
 ## Title: Hydra
 ## Notes: Multiboxing and group leveling helper.

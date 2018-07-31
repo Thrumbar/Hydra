@@ -20,6 +20,16 @@ Taxi.defaults = {
 	timeout = 60,
 }
 
+function TaxiFrame_OnLoad(self)
+	self:RegisterEvent("TAXIMAP_CLOSED");
+	self.InsetBg:SetHorizTile(false);
+	self.InsetBg:SetVertTile(false);
+end
+
+function TaxiFrame_ShouldShowOldStyle()
+	return GetTaxiMapID() ~= 1007 and GetTaxiMapID() ~= 1184; -- Broken Isles/Argus
+end
+
 local MESSAGE_UNKNOWN, MESSAGE_TIMEOUT = "UNKNOWN", "TIMEOUT"
 local taxiTime, taxiName = 0
 
@@ -77,6 +87,13 @@ function Taxi:TAXIMAP_OPENED()
 
 	taxiTime, taxiName = 0, nil
 	return self:SendAddonMessage(MESSAGE_UNKNOWN)
+end
+
+function TaxiFrame_OnEvent(self, event, ...)
+	if ( event == "TAXIMAP_CLOSED" ) then
+		HideUIPanel(self);
+		return;
+	end
 end
 
 ------------------------------------------------------------------------

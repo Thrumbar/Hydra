@@ -89,7 +89,7 @@ L.DetectionMethod = "Detection method"
 L.DetectionMethod_Info = [=[Select the method to use for detecting the primary character.
 
 If you are multiboxing on multiple physical machines, or are running multiple copies of WoW in windowed mode, the "Application Focus" mode will probably not work for you, and you should make sure that your primary character is the group leader.]=]
-L.GroupLeader = "Group leader"
+L.PartyLeader = "Party leader"
 L.GroupTimeoutError = "Group chat forwarding timeout reached."
 L.GroupTimeout_Info = "If this many seconds have elapsed since the last forwarded message, don't forward messages typed in group chat to the last whisperer unless the target is explicitly specified."
 L.WhisperFrom = "%1$s received a whisper from %2$s."
@@ -281,7 +281,7 @@ L.DetectionMethod = "Wahrnehmungsmethode"
 L.DetectionMethod_Info = [=[Wählt die Methode zur Erfassung der Hauptcharakter aus.
 
 Wenn Ihr mehrere Computer verwendet, oder mehrere Instanzen des Spiels führt aus, der "Spiel im Fokus" Methode wird wahrscheinlich für Euch nicht funktionen, und Ihr müsst sicherstellen, dass Eure Hauptcharakter der Gruppenleiter ist.]=]
-L.GroupLeader = "Gruppenleiter"
+L.PartyLeader = "Gruppenleiter"
 L.GroupTimeoutError = "Gruppenweiterleitungsablauf überschritten."
 L.GroupTimeout_Info = "Wenn diese viele Sekunden sind vergangen, seit die letzte Nachricht weitergeleitet wurde, neue Nachrichten in Gruppenchat werden nicht weitergeleitet, außer wenn die Ziel explizit angegeben wird."
 L.WhisperFrom = "%1$s hat ein Flüstern von %2$s erhalten."
@@ -454,7 +454,7 @@ L.DetectionMethod = "Método de detección"
 L.DetectionMethod_Info = [=[Seleccione el método para utilizar para detectar el personaje principal.
 
 Si estás jugando en varios equipos, o estás ejecutando en la misma computadora múltiples copias de WoW en el modo de ventana, el método de detección "Programa en foco" probablemente no funcione. En este caso, debe utilizar el método "Líder del grupo" y asegúrate de que tu personaje principal es el líder del grupo.]=]
-L.GroupLeader = "Líder del grupo"
+L.PartyLeader = "Líder del grupo"
 L.GroupTimeoutError = "Se ha alcanzado el tiempo de espera para el chat de grupo."
 L.GroupTimeout_Info = "Después de estos segundos desde el último susurro, los mensajes escritos en el chat de grupo no se reenvían, a menos especificar explícitamente el objetivo."
 L.WhisperFrom = "%1$s recibió un susurro de %2$s."
@@ -629,7 +629,7 @@ L.DetectionMethod = "Método de detección"
 L.DetectionMethod_Info = [=[Seleccione el método para utilizar para detectar el personaje principal.
 
 Si estás jugando en varios equipos, o estás ejecutando en la misma computadora múltiples copias de WoW en el modo de ventana, el método de detección "Programa en foco" probablemente no funcione. En este caso, debe utilizar el método "Líder del grupo" y asegúrate de que tu personaje principal es el líder del grupo.]=]
-L.GroupLeader = "Líder del grupo"
+L.PartyLeader = "Líder del grupo"
 L.GroupTimeoutError = "Se ha alcanzado el tiempo de espera para el chat de grupo."
 L.GroupTimeout_Info = "Después de estos segundos desde el último susurro, los mensajes escritos en el chat de grupo no se reenvían, a menos especificar explícitamente el objetivo."
 L.WhisperFrom = "%1$s recibió un susurro de %2$s."
@@ -934,7 +934,7 @@ L.SummonExpired = "Призыв истек!"
 L.Chat = "Чат"
 L.Chat_Info = "Перенаправляет шепот, посланный неактивным персонажам в чат группы и перенаправляет ответы оригинальному отправителю."
 L.DetectionMethod = "Метод обнаружения"
-L.GroupLeader = "Лидер группы"
+L.PaertLeader = "Лидер группы"
 L.WhisperFrom = "%1$s получил шепот от %2$s."
 L.WhisperFromBnet = [=[%1$s получил Battle.net шепот от %2$s:
 %3$s]=]
@@ -1009,7 +1009,7 @@ L.AppFocus = "애플리케이션 포커스"
 L.Chat = "대화"
 L.Chat_Info = "비활동 캐릭터에게 보내진 귓속말을 파티 대화로 전달하며, 귓속말을 보낸 이에게 답장을 전달합니다."
 L.DetectionMethod = "모드"
-L.GroupLeader = "파티장"
+L.PartyLeader = "파티장"
 L.WhisperFrom = "%1$s 님이 %2$s 님으로 부터 귓속말을 받았습니다."
 L.WhisperFromBnet = [=[%1$s 님이 %2$s 님으로 부터 Battle.net 귓속말을 받았습니다:
 %3$s]=]

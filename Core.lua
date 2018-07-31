@@ -60,13 +60,13 @@ function Hydra:SendAddonMessage(message, target)
 		return
 	end
 	if target then
-		self:Debug("SendAddonMessage", self.name, message, "WHISPER", target)
+		self:Debug("C_ChatInfo.SendAddonMessage", self.name, message, "WHISPER", target)
 		return SendAddonMessage("Hydra", self.name .. " " .. message, "WHISPER", target)
 	end
 	local channel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or IsInRaid() and "RAID" or IsInGroup() and "PARTY"
 	if channel then
-		self:Debug("SendAddonMessage", self.name, message, channel)
-		return SendAddonMessage("Hydra", self.name .. " " .. message, channel)
+		self:Debug("C_ChatInfo.SendAddonMessage", self.name, message, channel)
+		return C_ChatInfo.SendAddonMessage("Hydra", self.name .. " " .. message, channel)
 	end
 end
 
@@ -75,11 +75,11 @@ function Hydra:SendChatMessage(message, target)
 		return
 	end
 	if target then
-		return SendChatMessage(message, "WHISPER", nil, target)
+		return C_ChatInfo.SendChatMessage(message, "WHISPER", nil, target)
 	end
 	local channel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or IsInRaid() and "RAID" or IsInGroup() and "PARTY"
 	if channel then
-		return SendChatMessage(message, channel)
+		return C_ChatInfo.SendChatMessage(message, channel)
 	end
 end
 
@@ -274,7 +274,7 @@ function f:PLAYER_LOGIN()
 		end
 	end
 
-	RegisterAddonMessagePrefix("Hydra")
+	C_ChatInfo.RegisterAddonMessagePrefix("Hydra")
 	f:RegisterEvent("CHAT_MSG_ADDON")
 	f:RegisterEvent("GROUP_ROSTER_UPDATE")
 	f:RegisterEvent("PARTY_LEADER_CHANGED")
